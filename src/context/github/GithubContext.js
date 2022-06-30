@@ -16,6 +16,8 @@ export const GithubProvider = ({children}) => {
 
     const initialState = {
         users: [],
+        user:{},
+        repos:[],
         loading: false, // Earlier it was true for testing purposes, along with fetch
         // Now it is set to false
     }
@@ -40,6 +42,49 @@ export const GithubProvider = ({children}) => {
         dispatch({
             type: 'GET_USERS',
             payload:items,
+        })
+    }
+
+    // Get single user
+    const getUser = async (login) => {
+        setLoading();
+
+        const response = await fetch(`${GITHUB_URL}/users/${login}`,{
+            headers:{
+                Authorization : `${GITHUB_TOKEN}`
+            }
+        })
+
+        if(response.status === 404){
+            window.location = '/notfound'
+        }else{
+            const data = await response.json();
+            dispatch({
+                type: 'GET_USER',
+                payload:data,
+        })
+        }
+    }
+
+    // Get user repos
+    const getUserRepos = async (login) => {
+        setLoading();
+
+        const params = new URLSearchParams({
+            sort: 'created',
+            per_page: 10
+        })
+        const response = await fetch(`${GITHUB_URL}/users/${login}/repos?${params}`, {
+            headers: {
+                Authorization: `${GITHUB_TOKEN}`
+            }
+        })
+
+        const data = await response.json();
+
+        dispatch({
+            type:'GET_REPOS',
+            payload: data
         })
     }
 
@@ -84,10 +129,14 @@ export const GithubProvider = ({children}) => {
         // fetchUsers
 
         users: state.users,
+        user:state.user,
+        repos:state.repos,
         loading: state.loading,
         fetchUsers,
         searchUsers,
-        clearUsers
+        getUser,
+        clearUsers,
+        getUserRepos
     }}>
         {children}
     </GithubContext.Provider>
