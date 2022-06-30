@@ -17,22 +17,22 @@ function RepoItem({repo}) {
         <div className="card-body">
             <h3 className="mb-2 text-xl font-semibold">
                 <a href={html_url} >
-                    <h2 className="inline mr-1">{name}</h2>
+                    <h2 className="inline mr-1 text-white">{name}</h2>
                 </a>
             </h3>
             <p className='mb-3'>{description}</p>
             <div>
                 <div className="mr-2 badge badge-info badge-lg">
-                    <h2 className='mr-2'>{watchers_count}</h2>
+                    <h2 className='mr-2'> Watchers Count: {watchers_count}</h2>
                 </div>
                 <div className="mr-2 badge badge-success badge-lg">
-                    <h2 className='mr-2'>{stargazers_count}</h2>
+                    <h2 className='mr-2'>Stargazers: {stargazers_count}</h2>
                 </div>
                 <div className="mr-2 badge badge-error badge-lg">
-                    <h2 className='mr-2'>{open_issues}</h2>
+                    <h2 className='mr-2'>Open Issues: {open_issues}</h2>
                 </div>
                 <div className="mr-2 badge badge-warning badge-lg">
-                    <h2 className='mr-2'>{forks}</h2>
+                    <h2 className='mr-2'>Forks: {forks}</h2>
                 </div>
             </div>
         </div>
