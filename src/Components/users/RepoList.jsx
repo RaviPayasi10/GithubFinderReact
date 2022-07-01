@@ -1,6 +1,7 @@
 
 import PropTypes from 'prop-types'
 import RepoItem from './RepoItem'
+import uuid from 'react-uuid'
 
 function RepoList({repos}) {
   return (
@@ -10,7 +11,7 @@ function RepoList({repos}) {
                 Recent Repositories
             </h2>
             {repos.map( (repo) => (
-                <RepoItem key='repo.id' repo={repo} />
+                <RepoItem key={uuid()} repo={repo} />
             ))}
         </div>
     </div>
